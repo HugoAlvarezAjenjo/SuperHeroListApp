@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
+import androidx.core.text.isDigitsOnly
 import com.revan.superheroapp.databinding.ActivityDetailSuperheroBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
@@ -35,7 +36,7 @@ class DetailSuperheroActivity : AppCompatActivity() {
             val superheroDetail =
                 getRetrofit().create(ApiService::class.java).getSuperheroDetail(id)
 
-            if(superheroDetail.body() != null){
+            if (superheroDetail.body() != null) {
                 Log.i("SuperHeroDetailInformation", superheroDetail.body().toString())
                 runOnUiThread { createUI(superheroDetail.body()!!) }
             }
@@ -61,7 +62,10 @@ class DetailSuperheroActivity : AppCompatActivity() {
 
     private fun updateHeight(view: View, stat: String) {
         val params = view.layoutParams
-        params.height = pxToDp(stat.toFloat())
+
+        val statModified: String = if (stat == "null") "0" else stat
+
+        params.height = pxToDp((statModified).toFloat())
         view.layoutParams = params
     }
 
@@ -71,10 +75,7 @@ class DetailSuperheroActivity : AppCompatActivity() {
     }
 
     private fun getRetrofit(): Retrofit {
-        return Retrofit
-            .Builder()
-            .baseUrl("https://superheroapi.com/")
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        return Retrofit.Builder().baseUrl("https://superheroapi.com/")
+            .addConverterFactory(GsonConverterFactory.create()).build()
     }
 }
