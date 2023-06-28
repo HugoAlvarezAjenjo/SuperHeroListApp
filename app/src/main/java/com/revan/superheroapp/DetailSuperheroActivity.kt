@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import androidx.core.text.isDigitsOnly
 import com.revan.superheroapp.databinding.ActivityDetailSuperheroBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.CoroutineScope
