@@ -29,6 +29,7 @@ class DetailSuperheroActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_detail_superhero)
         val id: String = intent.getStringExtra(EXTRA_ID).orEmpty()
+        getSuperheroInformation(id)
     }
 
     private fun getSuperheroInformation(id: String) {
@@ -37,7 +38,9 @@ class DetailSuperheroActivity : AppCompatActivity() {
                 getRetrofit().create(ApiService::class.java).getSuperheroesDetail(id)
 
             if (superheroDetail.body() != null) {
-                runOnUiThread { createUI(superheroDetail.body()!!) } // Se que no es nulo !!
+                runOnUiThread {
+                    createUI(superheroDetail.body()!!)
+                } // Se que no es nulo !!
             }
 
         }
