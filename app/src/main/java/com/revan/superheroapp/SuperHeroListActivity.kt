@@ -58,11 +58,17 @@ class SuperHeroListActivity : AppCompatActivity() {
                 Log.i("NameSearch", "Funciona")
                 val response: SuperHeroDataResponse? = myResponse.body()
 
-                if (response != null) {
+                if (response?.superheroes != null) {
                     Log.i("NameSearch", response.toString())
 
                     runOnUiThread {
                         adapter.updateList(response.superheroes)
+                        binding.progressBar.isVisible = false
+                    }
+
+                } else {
+                    runOnUiThread {
+                        adapter.updateList(emptyList())
                         binding.progressBar.isVisible = false
                     }
                 }
